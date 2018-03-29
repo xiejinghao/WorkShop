@@ -58,6 +58,20 @@ namespace WorkShop.Models
                     ShipRegion = "中山區",
                     ShipPostalCode = "12345",
                     ShipCountry = "台灣"
+                },  new Order{
+                    OrderID = 2,
+                    CustomID = 2,
+                    EmployeeID = 1,
+                    OrderDate = Convert.ToDateTime("2018-03-29"),
+                    RequireDate = Convert.ToDateTime("2018-03-29"),
+                    ShippedDate = Convert.ToDateTime("2018-03-29"),
+                    ShipperID = 1,
+                    Freight = 2000,
+                    ShipAddress = "中山路1號",
+                    ShipCity = "台北市",
+                    ShipRegion = "中山區",
+                    ShipPostalCode = "12345",
+                    ShipCountry = "台灣"
                 }
             };
             return OrderList;
