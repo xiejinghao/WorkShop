@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WorkShop.Models
+namespace MVC_HW.Models
 {
     public class Shippers
     {

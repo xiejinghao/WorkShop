@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WorkShop;
+
 
 namespace MVC_HW.Controllers
 {
     public class SalesOrdersController : Controller
     {
+        public static Models.Order OrderList;
         // GET: SalesOrders
         public ActionResult Index()
-        {   
-            WorkShop.Models.Order test= new WorkShop.Models.Order();
-            var x=test.Initialize().Where(model=>model.OrderID==2);
+        {
+          OrderList = new Models.Order();
+          MVC_HW.Models.Order test= new MVC_HW.Models.Order();
+             var x =test.Initialize().Where(model=>model.OrderID==2);
             
             return View(x);
         }
@@ -21,6 +23,14 @@ namespace MVC_HW.Controllers
         {
             
 
+            return View();
+        }
+        [HttpPost]
+        public ActionResult searchResult(Models.SearchArgs SearchArgs)
+
+        {
+
+            Console.WriteLine(SearchArgs);
             return View();
         }
     }

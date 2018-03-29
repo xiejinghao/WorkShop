@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WorkShop.Models
+namespace MVC_HW.Models
 {
     public class Order
     {
