@@ -1,5 +1,7 @@
 ﻿@model MVC_HW.Models.SearchArgs
 
+
+
 @{
     ViewBag.Title = "search";
 }
@@ -10,7 +12,7 @@
 @using (Html.BeginForm("SearchResult", "SalesOrders", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>SearchArgs</h4>
         <hr />
@@ -35,6 +37,9 @@
             @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EmployeeID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("text", (IEnumerable<SelectListItem>)ViewBag.SL,  new { @class = "form-control" } )
+
+
                 @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,7 +55,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderDate, new{ @class = "form-control" ,type= "datetime-local" } )
+                @Html.EditorFor(model => model.OrderDate, new { @class = "form-control", type = "datetime-local" })
                 @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
             </div>
         </div>
