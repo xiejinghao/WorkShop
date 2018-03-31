@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVC_HW.Models;
 
 
 namespace MVC_HW.Controllers
 {
     public class SalesOrdersController : Controller
     {
-        public static Models.Order OrderList;
+        public static List<Models.Order> OrderList;
         // GET: SalesOrders
         public ActionResult Index()
         {
-          OrderList = new Models.Order();
-          MVC_HW.Models.Order test= new MVC_HW.Models.Order();
-             var x =test.Initialize().Where(model=>model.OrderID==2);
             
-            return View(x);
+            OrderList = new Models.Order().Initialize();
+
+          
+            
+            return View(OrderList);
         }
         public ActionResult search()
         {
