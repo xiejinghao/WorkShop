@@ -35,17 +35,33 @@ namespace MVC_HW.Controllers
                     Value=x.EmployeeID.ToString()
                 });
             }
-            SelectList SL = new SelectList(selectlistitem);
-            ViewBag.SL = SL.Items;
+            SelectList EL = new SelectList(selectlistitem);
+            ViewBag.EL = EL.Items;
+            List<SelectListItem> selectlistitemShipper = new List<SelectListItem>();
+
+            foreach (var x in ShippersList)
+            {
+                selectlistitemShipper.Add(new SelectListItem()
+                {
+                    Text = x.CompanyName,
+                    Value = x.ShipperID.ToString()
+                });
+            }
+            SelectList SL = new SelectList(selectlistitemShipper);
+            ViewBag.SL = SL.Items ;
             return View();
         }
         [HttpPost]
         public ActionResult searchResult(Models.SearchArgs SearchArgs)
 
         {
+            //var test = SearchArgs.ShippingID.Equals(OrderList[0].ShipperID);
+            var ViewOrder = OrderList.Where(x => x.ShipperID.ToString().Equals(SearchArgs.ShippingID));
 
-            Console.WriteLine(SearchArgs);
-            return View();
+
+
+
+            return View(ViewOrder);
         }
     }
 }

@@ -36,8 +36,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EmployeeID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.DropDownList("text", (IEnumerable<SelectListItem>)ViewBag.SL,  new { @class = "form-control" } )
+                
+                @Html.DropDownList("EmployeeID", (IEnumerable<SelectListItem>)ViewBag.EL,  new { @class = "form-control" } )
 
 
                 @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
@@ -47,7 +47,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ShippingID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ShippingID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("ShippingID", (IEnumerable<SelectListItem>)ViewBag.SL, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ShippingID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -55,7 +55,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderDate, new { @class = "form-control", type = "datetime-local" })
+                @Html.TextBoxFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control", }, @type = "date" })
                 @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -63,7 +63,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RequiredDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RequiredDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.RequiredDate, new { htmlAttributes = new { @class = "form-control", }, @type = "date" })
                 @Html.ValidationMessageFor(model => model.RequiredDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,7 +71,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ShippedDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ShippedDate, new { htmlAttributes = new { @class = "form-control" } })
+                
+                @Html.TextBoxFor(model => model.ShippedDate, new { htmlAttributes = new { @class = "form-control", } ,@type = "date" })
                 @Html.ValidationMessageFor(model => model.ShippedDate, "", new { @class = "text-danger" })
             </div>
         </div>
