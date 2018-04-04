@@ -56,8 +56,16 @@ namespace MVC_HW.Controllers
 
         {
             //var test = SearchArgs.ShippingID.Equals(OrderList[0].ShipperID);
-            var ViewOrder = OrderList.Where(x => x.ShipperID.ToString().Equals(SearchArgs.ShippingID));
+            //var ViewOrder = OrderList.Where(x => x.ShipperID.ToString().Equals(SearchArgs.ShippingID));
+            IEnumerable<Order> ViewOrder=OrderList;
+            if (ModelState.IsValid) {
+               if (SearchArgs.ShippingID != null) {
+                    ViewOrder = OrderList.Where(x => x.ShipperID.ToString().Equals(SearchArgs.ShippingID));
+                }
+                
 
+
+            }
 
 
 
