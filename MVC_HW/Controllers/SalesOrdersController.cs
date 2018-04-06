@@ -16,8 +16,8 @@ namespace MVC_HW.Controllers
         // GET: SalesOrders
         public ActionResult Index()
         {
-            
-            OrderList = new Models.Order().Initialize();
+            if (OrderList == null) { 
+            OrderList = new Models.Order().Initialize(); }
 
            
             
@@ -70,6 +70,19 @@ namespace MVC_HW.Controllers
 
 
             return View(ViewOrder);
+        }
+        public ActionResult Delete(int id) {
+            var search = OrderList.Find(x => x.OrderID.Equals(id));
+            return View(search);
+        }
+        [HttpPost]
+        public ActionResult DeleteTrue(int id) {
+            
+            var itemToRemove = OrderList.SingleOrDefault( x=> x.OrderID == id);
+            if (itemToRemove != null)
+                OrderList.Remove(itemToRemove);
+
+            return RedirectToAction("Index", "SalesOrders" );
         }
     }
 }
