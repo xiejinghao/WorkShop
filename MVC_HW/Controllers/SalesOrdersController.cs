@@ -13,11 +13,13 @@ namespace MVC_HW.Controllers
         public static List<Models.Order> OrderList;
         public static List<Models.Employees> EmployeesList;
         public static List<Models.Shippers> ShippersList;
+        public static List<Models.Customers> CustomersList;
         // GET: SalesOrders
         public ActionResult Index()
         {
             if (OrderList == null) {
-                OrderList = new Models.Order().Initialize(); }
+                OrderList = new Models.Order().Initialize();
+            }
 
 
 
@@ -27,6 +29,7 @@ namespace MVC_HW.Controllers
         {
             EmployeesList = new Models.Employees().Initialize();
             ShippersList = new Models.Shippers().Initialize();
+            CustomersList = new Models.Customers().Initialize();
             List<SelectListItem> selectlistitem = new List<SelectListItem>();
             foreach (var x in EmployeesList) {
                 selectlistitem.Add(new SelectListItem()
@@ -60,8 +63,36 @@ namespace MVC_HW.Controllers
             IEnumerable<Order> ViewOrder = OrderList;
             if (ModelState.IsValid) {
                 if (SearchArgs.ShippingID != null) {
-                    ViewOrder = OrderList.Where(x => x.ShipperID.ToString().Equals(SearchArgs.ShippingID));
+                    ViewOrder = ViewOrder.Where(x => x.ShipperID.ToString().Contains(SearchArgs.ShippingID));
                 }
+                if (SearchArgs.OrderID != null)
+                {
+                    ViewOrder = ViewOrder.Where(x => x.OrderID.ToString().Contains(SearchArgs.OrderID.ToString()));
+                }
+                if (SearchArgs.OrderDate != null)
+                {
+                    ViewOrder = ViewOrder.Where(x => x.OrderDate.ToString().Contains(SearchArgs.OrderDate.ToString()));
+
+                }
+                if (SearchArgs.RequiredDate != null)
+                {
+                    ViewOrder = ViewOrder.Where(x => x.RequireDate.ToString().Contains(SearchArgs.RequiredDate.ToString()));
+                }
+                if (SearchArgs.ShippedDate != null)
+                {
+                    ViewOrder = ViewOrder.Where(x => x.ShippedDate.ToString().Contains(SearchArgs.ShippedDate.ToString()));
+
+                }
+              
+               var search=CustomersList.SingleOrDefault(x => x.CompanyName.Equals(SearchArgs.CompanyName));
+
+                if (SearchArgs.CompanyName != null)
+                {
+                    ViewOrder = ViewOrder.Where(x=>x.CustomID.Equals(search.CustomerID));
+
+                }
+
+
 
 
 
@@ -129,6 +160,7 @@ namespace MVC_HW.Controllers
                 search.ShipperID = order.ShipperID;
                 search.ShipPostalCode = order.ShipPostalCode;
                 search.ShipRegion = order.ShipRegion;
+
                     
             }
             return RedirectToAction("Index", "SalesOrders");
