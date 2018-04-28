@@ -13,20 +13,26 @@ namespace MVC_HW.Models
         [DisplayName("訂單編號")]
         public int OrderID { get; set; }
         
-        public int CustomID { get; set; }
+        public string CompanyName { get; set; }
         
-        public int EmployeeID { get; set; }
+        public String EmployeeName { get; set; }
 
         [DisplayName("訂購日期")]
-        public DateTime OrderDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
+
+        public DateTime? OrderDate { get; set; }
 
         [DisplayName("需要日期")]
-        public DateTime RequireDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
+
+        public DateTime? RequireDate { get; set; }
 
         [DisplayName("出貨日期")]
-        public DateTime ShippedDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
 
-        public int ShipperID { get; set; }
+        public DateTime? ShippedDate { get; set; }
+
+        
 
         public Decimal Freight { get; set; }
 
@@ -41,40 +47,6 @@ namespace MVC_HW.Models
         public String ShipCountry { get; set; }
 
 
-        public List<Order> Initialize()
-        {
-            var OrderList = new List<Order>() {
-                new Order{
-                    OrderID = 1,
-                    CustomID = 1,
-                    EmployeeID = 1,
-                    OrderDate = Convert.ToDateTime("2018-03-29"),
-                    RequireDate = Convert.ToDateTime("2018-03-29"),
-                    ShippedDate = Convert.ToDateTime("2018-03-29"),
-                    ShipperID = 1,
-                    Freight = 2000,
-                    ShipAddress = "中山路1號",
-                    ShipCity = "台北市",
-                    ShipRegion = "中山區",
-                    ShipPostalCode = "12345",
-                    ShipCountry = "台灣"
-                },  new Order{
-                    OrderID = 2,
-                    CustomID = 2,
-                    EmployeeID = 1,
-                    OrderDate = Convert.ToDateTime("2018-03-29"),
-                    RequireDate = Convert.ToDateTime("2018-03-29"),
-                    ShippedDate = Convert.ToDateTime("2018-03-29"),
-                    ShipperID = 1,
-                    Freight = 2000,
-                    ShipAddress = "中山路1號",
-                    ShipCity = "台北市",
-                    ShipRegion = "中山區",
-                    ShipPostalCode = "12345",
-                    ShipCountry = "台灣"
-                }
-            };
-            return OrderList;
-        }
+      
     }
 }

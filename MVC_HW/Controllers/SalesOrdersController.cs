@@ -67,7 +67,7 @@ namespace MVC_HW.Controllers
         {
             //var test = SearchArgs.ShippingID.Equals(OrderList[0].ShipperID);
             //var ViewOrder = OrderList.Where(x => x.ShipperID.ToString().Equals(SearchArgs.ShippingID));
-            IEnumerable<Order> ViewOrder = OrderList;
+           /* IEnumerable<Order> ViewOrder = OrderList;
             if (ModelState.IsValid) {
                 if (SearchArgs.ShippingID != null) {
                     ViewOrder = ViewOrder.Where(x => x.ShipperID.ToString().Contains(SearchArgs.ShippingID));
@@ -105,9 +105,9 @@ namespace MVC_HW.Controllers
 
             }
 
+    */
 
-
-            return View(ViewOrder);
+            return View(OrderList);
         }
         public ActionResult Delete(int id) {
             var search = OrderList.Find(x => x.OrderID.Equals(id));
@@ -155,7 +155,7 @@ namespace MVC_HW.Controllers
         }
         [HttpPost]
         public ActionResult EditComfirm(Models.Order order) {
-            var search = OrderList.FirstOrDefault(x => x.OrderID == order.OrderID);
+           /* var search = OrderList.FirstOrDefault(x => x.OrderID == order.OrderID);
             if (search != null) {
                 search.Freight = order.Freight;
                 search.OrderDate = order.OrderDate;
@@ -169,7 +169,7 @@ namespace MVC_HW.Controllers
                 search.ShipRegion = order.ShipRegion;
 
                     
-            }
+            }*/
             return RedirectToAction("Index", "SalesOrders");
 
 
