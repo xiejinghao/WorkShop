@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVC_HW.Models;
-
+using MVC_HW.Dao;
+using MVC_HW.Models.Service;
+using System.Data;
 
 namespace MVC_HW.Controllers
 {
@@ -17,8 +19,13 @@ namespace MVC_HW.Controllers
         // GET: SalesOrders
         public ActionResult Index()
         {
+
+            OrderService OrderService = new OrderService();
+            
+            
+            
             if (OrderList == null) {
-                OrderList = new Models.Order().Initialize();
+                OrderList = OrderService.GetList();
             }
 
 

@@ -90,7 +90,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
@@ -145,6 +147,8 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\SalesOrdersController.cs" />
+    <Compile Include="Dao\BaseDao.cs" />
+    <Compile Include="Dao\OrderDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,6 +156,7 @@
     <Compile Include="Models\Employees.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\SearchArgs.cs" />
+    <Compile Include="Models\Service\OrderService.cs" />
     <Compile Include="Models\Shippers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
