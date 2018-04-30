@@ -13,6 +13,7 @@ namespace MVC_HW.Models
 
         public String FirstName { get; set; }
 
+        public String FullName { get; set; }
         public List<Employees> Initialize()
         {
             var EmployeesList = new List<Employees>() {

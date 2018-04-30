@@ -13,14 +13,13 @@ namespace MVC_HW.Models.Service
         {
             OrderDao OD = new OrderDao();
             DataSet ds = OD.GetDataSet();
-         
-           
-
             List<Order> LOrder = ds.Tables[0].AsEnumerable().Select(m => new Order()
             {
                 OrderID = m.Field<int>("OrderID"),
-                CompanyName=m.Field<String>("CompanyName"),
-                EmployeeName=m.Field<String>("LastName")+ m.Field<String>("FirstName"),
+                
+                CusCompanyName =m.Field<String>("Cuscom"),
+                ShipCompanyName = m.Field<String>("Shipcom"),
+                EmployeeName =m.Field<String>("LastName")+ m.Field<String>("FirstName"),
                 OrderDate=m.Field<DateTime?>("OrderDate"),
                 RequireDate=m.Field<DateTime?>("RequiredDate"),
                
@@ -33,13 +32,7 @@ namespace MVC_HW.Models.Service
                 ShipCountry=m.Field<String>("ShipCountry")
             }).ToList();
             return LOrder;
-
-
-
-
-
-
-
         }
+
     }
 }

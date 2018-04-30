@@ -12,9 +12,13 @@ namespace MVC_HW.Models
     {
         [DisplayName("訂單編號")]
         public int OrderID { get; set; }
-        
-        public string CompanyName { get; set; }
-        
+        public int CustomerID { get; set; }
+        public int EmployeeID { get; set; }
+        public int ShipperID { get; set; }
+
+        public string CusCompanyName { get; set; }
+        public string ShipCompanyName { get; set; }
+
         public String EmployeeName { get; set; }
 
         [DisplayName("訂購日期")]

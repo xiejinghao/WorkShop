@@ -124,9 +124,9 @@ namespace MVC_HW.Controllers
         }
 
         public ActionResult Edit(int id) {
-            EmployeesList = new Models.Employees().Initialize();
+            EmployeesList = new EmployeeService().GetEmployeeList();
             ShippersList = new Models.Shippers().Initialize();
-            List<SelectListItem> selectlistitem = new List<SelectListItem>();
+          /*  List<SelectListItem> selectlistitem = new List<SelectListItem>();
             foreach (var x in EmployeesList)
             {
                 selectlistitem.Add(new SelectListItem()
@@ -134,21 +134,12 @@ namespace MVC_HW.Controllers
                     Text = x.FirstName + x.LastName,
                     Value = x.EmployeeID.ToString()
                 });
-            }
-            SelectList EL = new SelectList(selectlistitem);
-            ViewBag.EL = EL.Items;
-            List<SelectListItem> selectlistitemShipper = new List<SelectListItem>();
-
-            foreach (var x in ShippersList)
-            {
-                selectlistitemShipper.Add(new SelectListItem()
-                {
-                    Text = x.CompanyName,
-                    Value = x.ShipperID.ToString()
-                });
-            }
-            SelectList SL = new SelectList(selectlistitemShipper);
-            ViewBag.SL = SL.Items;
+            }*/
+       
+            ViewBag.EL = EmployeesList;
+           
+            SelectList SL = new SelectList(ShippersList,"ShipperID","CompanyName");
+            ViewBag.SL = ShippersList;
             var result = OrderList.Find(x => x.OrderID.Equals(id));
             return View(result);
 
