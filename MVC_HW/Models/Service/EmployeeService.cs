@@ -12,8 +12,8 @@ namespace MVC_HW.Models.Service
     {
 
         public List<Employees> GetEmployeeList() {
-            EmployeeDao OD = new EmployeeDao();
-            DataSet ds = OD.GetDropDowmDataSet();
+            EmployeeDao ED = new EmployeeDao();
+            DataSet ds = ED.GetDropDowmDataSet();
             List<Employees> EList = ds.Tables[0].AsEnumerable().Select(m => new Employees()
             {
                EmployeeID=m.Field<int>("EmployeeID"),

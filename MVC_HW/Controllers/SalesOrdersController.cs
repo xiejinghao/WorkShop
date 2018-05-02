@@ -21,15 +21,7 @@ namespace MVC_HW.Controllers
         {
 
             OrderService OrderService = new OrderService();
-            
-            
-            
-            if (OrderList == null) {
-                OrderList = OrderService.GetList();
-            }
-
-
-
+            OrderList = OrderService.GetList();
             return View(OrderList);
         }
         public ActionResult Search()
@@ -124,8 +116,9 @@ namespace MVC_HW.Controllers
         }
 
         public ActionResult Edit(int id) {
+            CustomersList = new CustomerService().GetCustomerList();
             EmployeesList = new EmployeeService().GetEmployeeList();
-            ShippersList = new Models.Shippers().Initialize();
+            ShippersList = new ShipperService().GetShipperList();
           /*  List<SelectListItem> selectlistitem = new List<SelectListItem>();
             foreach (var x in EmployeesList)
             {
@@ -137,30 +130,34 @@ namespace MVC_HW.Controllers
             }*/
        
             ViewBag.EL = EmployeesList;
-           
-            SelectList SL = new SelectList(ShippersList,"ShipperID","CompanyName");
             ViewBag.SL = ShippersList;
+            ViewBag.CL = CustomersList;
+
+
             var result = OrderList.Find(x => x.OrderID.Equals(id));
             return View(result);
 
         }
         [HttpPost]
         public ActionResult EditComfirm(Models.Order order) {
-           /* var search = OrderList.FirstOrDefault(x => x.OrderID == order.OrderID);
-            if (search != null) {
-                search.Freight = order.Freight;
-                search.OrderDate = order.OrderDate;
-                search.RequireDate = order.RequireDate;
-                search.ShipAddress = order.ShipAddress;
-                search.ShipCity = order.ShipCity;
-                search.ShipCountry = order.ShipCountry;
-                search.ShippedDate = order.ShippedDate;
-                search.ShipperID = order.ShipperID;
-                search.ShipPostalCode = order.ShipPostalCode;
-                search.ShipRegion = order.ShipRegion;
+            /* var search = OrderList.FirstOrDefault(x => x.OrderID == order.OrderID);
+             if (search != null) {
+                 search.Freight = order.Freight;
+                 search.OrderDate = order.OrderDate;
+                 search.RequireDate = order.RequireDate;
+                 search.ShipAddress = order.ShipAddress;
+                 search.ShipCity = order.ShipCity;
+                 search.ShipCountry = order.ShipCountry;
+                 search.ShippedDate = order.ShippedDate;
+                 search.ShipperID = order.ShipperID;
+                 search.ShipPostalCode = order.ShipPostalCode;
+                 search.ShipRegion = order.ShipRegion;
 
-                    
-            }*/
+
+             }*/
+
+            OrderService OS = new OrderService();
+            OS.setOrder(order);
             return RedirectToAction("Index", "SalesOrders");
 
 

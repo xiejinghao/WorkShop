@@ -32,5 +32,13 @@ namespace MVC_HW.Models.Service
             return LOrder;
         }
 
+        public void setOrder(Order Order)
+        {
+            OrderDao OD = new OrderDao();
+            OD.OrderUpdate(Order);            
+            
+            
+        }
+
     }
 }
