@@ -11,8 +11,8 @@ namespace MVC_HW.Dao
 
 
         public DataSet GetDropDowmDataSet() {
-            String ConnStr = GetString();
-            SqlConnection conn = new SqlConnection(ConnStr);
+           
+            SqlConnection conn = GetSqlConnection();
             String sql = "select FirstName,LastName  ,FirstName+LastName as FullName,[EmployeeID] from[HR].[Employees]";
             SqlDataAdapter da = new SqlDataAdapter(sql, conn);
             DataSet ds = new DataSet();

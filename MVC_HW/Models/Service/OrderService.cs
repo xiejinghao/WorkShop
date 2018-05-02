@@ -16,13 +16,11 @@ namespace MVC_HW.Models.Service
             List<Order> LOrder = ds.Tables[0].AsEnumerable().Select(m => new Order()
             {
                 OrderID = m.Field<int>("OrderID"),
-                
                 CusCompanyName =m.Field<String>("Cuscom"),
                 ShipCompanyName = m.Field<String>("Shipcom"),
                 EmployeeName =m.Field<String>("LastName")+ m.Field<String>("FirstName"),
                 OrderDate=m.Field<DateTime?>("OrderDate"),
                 RequireDate=m.Field<DateTime?>("RequiredDate"),
-               
                 ShippedDate=m.Field<DateTime?>("ShippedDate"),
                 Freight=m.Field<Decimal>("Freight"),
                 ShipAddress=m.Field<String>("ShipAddress"),
