@@ -54,9 +54,10 @@ namespace MVC_HW.Controllers
             return View();
         }
         [HttpPost]
+
         public ActionResult searchResult(Models.SearchArgs SearchArgs)
 
-        {
+        { 
             //var test = SearchArgs.ShippingID.Equals(OrderList[0].ShipperID);
             //var ViewOrder = OrderList.Where(x => x.ShipperID.ToString().Equals(SearchArgs.ShippingID));
            /* IEnumerable<Order> ViewOrder = OrderList;
@@ -119,17 +120,19 @@ namespace MVC_HW.Controllers
             CustomersList = new CustomerService().GetCustomerList();
             EmployeesList = new EmployeeService().GetEmployeeList();
             ShippersList = new ShipperService().GetShipperList();
-          /*  List<SelectListItem> selectlistitem = new List<SelectListItem>();
-            foreach (var x in EmployeesList)
-            {
-                selectlistitem.Add(new SelectListItem()
-                {
-                    Text = x.FirstName + x.LastName,
-                    Value = x.EmployeeID.ToString()
-                });
-            }*/
-       
-            ViewBag.EL = EmployeesList;
+            /*  List<SelectListItem> selectlistitem = new List<SelectListItem>();
+              foreach (var x in EmployeesList)
+              {
+                  selectlistitem.Add(new SelectListItem()
+                  {
+                      Text = x.FirstName + x.LastName,
+                      Value = x.EmployeeID.ToString()
+                  });
+              }*/
+
+            ViewBag.EL = new SelectList(EmployeesList, "EmployeeID", "FullName");
+
+            //ViewBag.EL = EmployeesList;
             ViewBag.SL = ShippersList;
             ViewBag.CL = CustomersList;
 

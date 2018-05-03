@@ -27,18 +27,27 @@ namespace MVC_HW.Dao
         }
        public void OrderUpdate(Order order) {
             SqlConnection conn = GetSqlConnection();
-            String sql = @"Update [Sales].[Orders] set CustomerID=@CustomerID ,EmployeeID=@EmployeeID,OrderDate=CAST('@OrderDate' AS DATETIME),RequiredDate=CAST('@RequiredDate' AS DATETIME),ShippedDate=CAST('@ShippedDate' AS DATETIME),Freight=@Freight,ShipperID=@ShipperID,ShipAddress='@ShipAddress',ShipCity='@ShipCity',ShipRegion='@ShipRegion',ShipPostalCode=@ShipPostalCode,ShipCountry='@ShipCountry' where OrderID=@OrderID";
+            string sql = @"Update [Sales].[Orders] set CustomerID=@CustomerID ,EmployeeID=@EmployeeID,OrderDate=@OrderDate,RequiredDate=@RequiredDate,ShippedDate=@ShippedDate,Freight=@Freight,ShipperID=@ShipperID,ShipAddress=@ShipAddress,ShipCity=@ShipCity,ShipRegion=@ShipRegion,ShipPostalCode=@ShipPostalCode,ShipCountry=@ShipCountry where OrderID=@OrderID";
             SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.Add(new SqlParameter("@CustomerID",order.CustomerID));
-            cmd.Parameters.Add(new SqlParameter("@EmployeeID", order.EmployeeID));
-            cmd.Parameters.Add(new SqlParameter("@OrderDate",SqlDbType.DateTime).Value=order.OrderDate);
-            cmd.Parameters.Add(new SqlParameter("@RequiredDate", SqlDbType.DateTime).Value=order.RequireDate);
-            cmd.Parameters.Add(new SqlParameter("@ShippedDate", SqlDbType.DateTime).Value=order.ShippedDate);
+            cmd.Parameters.Add(new SqlParameter("@CustomerID",Convert.ToInt32(order.CustomerID)));
+            cmd.Parameters.Add(new SqlParameter("@EmployeeID",Convert.ToInt32( order.EmployeeID)));
+            cmd.Parameters.Add(new SqlParameter("@OrderDate",order.OrderDate.Value.ToString("yyyy-MM-dd HH:mm:ss")));
+            cmd.Parameters.Add(new SqlParameter("@RequiredDate", order.RequireDate.Value.ToString("yyyy-MM-dd HH:mm:ss")));
+            cmd.Parameters.Add(new SqlParameter("@ShippedDate", order.ShippedDate.Value.ToString("yyyy-MM-dd HH:mm:ss")));
             cmd.Parameters.Add(new SqlParameter("@Freight", order.Freight));
-            cmd.Parameters.Add(new SqlParameter("@ShipperID", order.ShipperID));
+            cmd.Parameters.Add(new SqlParameter("@ShipperID", Convert.ToInt32(order.ShipperID)));
             cmd.Parameters.Add(new SqlParameter("@ShipAddress", order.ShipAddress));
             cmd.Parameters.Add(new SqlParameter("@ShipCity", order.ShipCity));
-            cmd.Parameters.Add(new SqlParameter("@ShipRegion", order.ShipRegion));
+            if (order.ShipRegion != null)
+            {
+
+                cmd.Parameters.Add(new SqlParameter("@ShipRegion", order.ShipRegion));
+            }
+            else {
+
+                cmd.Parameters.Add(new SqlParameter("@ShipRegion", DBNull.Value));
+            }
+            
             cmd.Parameters.Add(new SqlParameter("@ShipPostalCode", order.ShipPostalCode));
             cmd.Parameters.Add(new SqlParameter("@ShipCountry", order.ShipCountry));
             cmd.Parameters.Add(new SqlParameter("@OrderID", order.OrderID));
