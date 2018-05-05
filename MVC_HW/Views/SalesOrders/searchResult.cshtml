@@ -12,10 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CustomID)
+            @Html.DisplayNameFor(model => model.CusCompanyName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EmployeeID)
+            @Html.DisplayNameFor(model => model.ShipCompanyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.OrderDate)
@@ -26,9 +29,7 @@
         <th>
             @Html.DisplayNameFor(model => model.ShippedDate)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShipperID)
-        </th>
+      
         <th>
             @Html.DisplayNameFor(model => model.Freight)
         </th>
@@ -53,10 +54,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CustomID)
+            @Html.DisplayFor(modelItem => item.CusCompanyName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EmployeeID)
+            @Html.DisplayFor(modelItem => item.ShipCompanyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.OrderDate)
@@ -67,9 +71,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.ShippedDate)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShipperID)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.Freight)
         </td>

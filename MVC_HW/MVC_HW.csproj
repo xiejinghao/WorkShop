@@ -179,6 +179,7 @@
     <Content Include="Views\SalesOrders\searchResult.cshtml" />
     <Content Include="Views\SalesOrders\Delete.cshtml" />
     <Content Include="Views\SalesOrders\Edit.cshtml" />
+    <Content Include="Views\SalesOrders\web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

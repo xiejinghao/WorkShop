@@ -19,13 +19,13 @@ namespace MVC_HW.Models
         [DisplayName("出貨公司名稱")]
         public int ShipperID { get; set; }
 
-       
+        [DisplayName("客戶名稱")]
         public string CusCompanyName { get; set; }
 
-      
+        [DisplayName("出貨公司名稱")]
         public string ShipCompanyName { get; set; }
 
-       
+        [DisplayName("負責員工")]
         public String EmployeeName { get; set; }
 
         [DisplayName("訂購日期")]

@@ -19,94 +19,83 @@ namespace MVC_HW.Controllers
         // GET: SalesOrders
         public ActionResult Index()
         {
+
             OrderService OrderService = new OrderService();
             OrderList = OrderService.GetList();
             return View(OrderList);
         }
         public ActionResult Search()
         {
-            EmployeesList = new Models.Employees().Initialize();
-            ShippersList = new Models.Shippers().Initialize();
-            CustomersList = new Models.Customers().Initialize();
-            List<SelectListItem> selectlistitem = new List<SelectListItem>();
-            foreach (var x in EmployeesList) {
-                selectlistitem.Add(new SelectListItem()
-                {
-                    Text = x.FirstName + x.LastName,
-                    Value = x.EmployeeID.ToString()
-                });
-            }
-            SelectList EL = new SelectList(selectlistitem);
-            ViewBag.EL = EL.Items;
-            List<SelectListItem> selectlistitemShipper = new List<SelectListItem>();
+            CustomersList = new CustomerService().GetCustomerList();
+            EmployeesList = new EmployeeService().GetEmployeeList();
+            ShippersList = new ShipperService().GetShipperList();
+            ViewBag.EL = EmployeesList;
+            ViewBag.SL = ShippersList;
+            ViewBag.CL = CustomersList;
 
-            foreach (var x in ShippersList)
-            {
-                selectlistitemShipper.Add(new SelectListItem()
-                {
-                    Text = x.CompanyName,
-                    Value = x.ShipperID.ToString()
-                });
-            }
-            SelectList SL = new SelectList(selectlistitemShipper);
-            ViewBag.SL = SL.Items;
+
             return View();
         }
         [HttpPost]
-
         public ActionResult searchResult(Models.SearchArgs SearchArgs)
 
-        { 
+        {
             //var test = SearchArgs.ShippingID.Equals(OrderList[0].ShipperID);
             //var ViewOrder = OrderList.Where(x => x.ShipperID.ToString().Equals(SearchArgs.ShippingID));
-           /* IEnumerable<Order> ViewOrder = OrderList;
-            if (ModelState.IsValid) {
-                if (SearchArgs.ShippingID != null) {
-                    ViewOrder = ViewOrder.Where(x => x.ShipperID.ToString().Contains(SearchArgs.ShippingID));
-                }
-                if (SearchArgs.OrderID != null)
-                {
-                    ViewOrder = ViewOrder.Where(x => x.OrderID.ToString().Contains(SearchArgs.OrderID.ToString()));
-                }
-                if (SearchArgs.OrderDate != null)
-                {
-                    ViewOrder = ViewOrder.Where(x => x.OrderDate.ToString().Contains(SearchArgs.OrderDate.ToString()));
+            /* IEnumerable<Order> ViewOrder = OrderList;
+             if (ModelState.IsValid) {
+                 if (SearchArgs.ShippingID != null) {
+                     ViewOrder = ViewOrder.Where(x => x.ShipperID.ToString().Contains(SearchArgs.ShippingID));
+                 }
+                 if (SearchArgs.OrderID != null)
+                 {
+                     ViewOrder = ViewOrder.Where(x => x.OrderID.ToString().Contains(SearchArgs.OrderID.ToString()));
+                 }
+                 if (SearchArgs.OrderDate != null)
+                 {
+                     ViewOrder = ViewOrder.Where(x => x.OrderDate.ToString().Contains(SearchArgs.OrderDate.ToString()));
 
-                }
-                if (SearchArgs.RequiredDate != null)
-                {
-                    ViewOrder = ViewOrder.Where(x => x.RequireDate.ToString().Contains(SearchArgs.RequiredDate.ToString()));
-                }
-                if (SearchArgs.ShippedDate != null)
-                {
-                    ViewOrder = ViewOrder.Where(x => x.ShippedDate.ToString().Contains(SearchArgs.ShippedDate.ToString()));
+                 }
+                 if (SearchArgs.RequiredDate != null)
+                 {
+                     ViewOrder = ViewOrder.Where(x => x.RequireDate.ToString().Contains(SearchArgs.RequiredDate.ToString()));
+                 }
+                 if (SearchArgs.ShippedDate != null)
+                 {
+                     ViewOrder = ViewOrder.Where(x => x.ShippedDate.ToString().Contains(SearchArgs.ShippedDate.ToString()));
 
-                }
-              
-               var search=CustomersList.SingleOrDefault(x => x.CompanyName.Equals(SearchArgs.CompanyName));
+                 }
 
-                if (SearchArgs.CompanyName != null)
-                {
-                    ViewOrder = ViewOrder.Where(x=>x.CustomID.Equals(search.CustomerID));
+                var search=CustomersList.SingleOrDefault(x => x.CompanyName.Equals(SearchArgs.CompanyName));
 
-                }
+                 if (SearchArgs.CompanyName != null)
+                 {
+                     ViewOrder = ViewOrder.Where(x=>x.CustomID.Equals(search.CustomerID));
 
-
+                 }
 
 
+       
+        
 
-            }
+             }
 
-    */
 
-            return View(OrderList);
+     */
+
+            OrderService OS = new OrderService();
+
+
+            return View(OS.Search(SearchArgs));
         }
-        public ActionResult Delete(int id) {
+        public ActionResult Delete(int id)
+        {
             var search = OrderList.Find(x => x.OrderID.Equals(id));
             return View(search);
         }
         [HttpPost]
-        public ActionResult DeleteTrue(int id) {
+        public ActionResult DeleteTrue(int id)
+        {
 
             var itemToRemove = OrderList.SingleOrDefault(x => x.OrderID == id);
             if (itemToRemove != null)
@@ -115,10 +104,14 @@ namespace MVC_HW.Controllers
             return RedirectToAction("Index", "SalesOrders");
         }
 
-        public ActionResult Edit(int id) {
+        public ActionResult Edit(int id)
+        {
             CustomersList = new CustomerService().GetCustomerList();
             EmployeesList = new EmployeeService().GetEmployeeList();
             ShippersList = new ShipperService().GetShipperList();
+            ViewBag.EL = EmployeesList;
+            ViewBag.SL = ShippersList;
+            ViewBag.CL = CustomersList;
             /*  List<SelectListItem> selectlistitem = new List<SelectListItem>();
               foreach (var x in EmployeesList)
               {
@@ -129,11 +122,7 @@ namespace MVC_HW.Controllers
                   });
               }*/
 
-            ViewBag.EL = new SelectList(EmployeesList, "EmployeeID", "FullName");
 
-            //ViewBag.EL = EmployeesList;
-            ViewBag.SL = ShippersList;
-            ViewBag.CL = CustomersList;
 
 
             var result = OrderList.Find(x => x.OrderID.Equals(id));
@@ -141,7 +130,8 @@ namespace MVC_HW.Controllers
 
         }
         [HttpPost]
-        public ActionResult EditComfirm(Models.Order order) {
+        public ActionResult EditComfirm(Models.Order order)
+        {
             /* var search = OrderList.FirstOrDefault(x => x.OrderID == order.OrderID);
              if (search != null) {
                  search.Freight = order.Freight;
