@@ -19,7 +19,6 @@ namespace MVC_HW.Controllers
         // GET: SalesOrders
         public ActionResult Index()
         {
-
             OrderService OrderService = new OrderService();
             OrderList = OrderService.GetList();
             return View(OrderList);
