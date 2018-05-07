@@ -24,6 +24,22 @@ namespace MVC_HW.Controllers
             OrderList = OrderService.GetList();
             return View(OrderList);
         }
+
+        public ActionResult Create()
+        {
+
+            CustomersList = new CustomerService().GetCustomerList();
+            EmployeesList = new EmployeeService().GetEmployeeList();
+            ShippersList = new ShipperService().GetShipperList();
+            ViewBag.EL = EmployeesList;
+            ViewBag.SL = ShippersList;
+            ViewBag.CL = CustomersList;
+
+
+            return View();
+
+            return View();
+        }
         public ActionResult Search()
         {
             CustomersList = new CustomerService().GetCustomerList();
