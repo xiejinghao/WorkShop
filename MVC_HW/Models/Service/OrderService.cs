@@ -63,5 +63,12 @@ namespace MVC_HW.Models.Service
             return LOrder;
         }
 
+        public int insert(Order order)
+        {
+            OrderDao OD = new OrderDao();
+            int x =OD.OrderInsert(order);
+            return x;
+
+        }
     }
 }

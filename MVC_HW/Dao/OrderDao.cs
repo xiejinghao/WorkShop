@@ -31,14 +31,22 @@ namespace MVC_HW.Dao
             SqlCommand cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add(new SqlParameter("@CustomerID",order.CustomerID));
             cmd.Parameters.Add(new SqlParameter("@EmployeeID", order.EmployeeID));
-            cmd.Parameters.Add(new SqlParameter("@OrderDate",SqlDbType.DateTime).Value=order.OrderDate);
-            cmd.Parameters.Add(new SqlParameter("@RequiredDate", SqlDbType.DateTime).Value=order.RequireDate);
-            cmd.Parameters.Add(new SqlParameter("@ShippedDate", SqlDbType.DateTime).Value=order.ShippedDate);
+            cmd.Parameters.Add(new SqlParameter("@OrderDate",order.OrderDate));
+            cmd.Parameters.Add(new SqlParameter("@RequiredDate", order.RequireDate));
+            cmd.Parameters.Add(new SqlParameter("@ShippedDate",order.ShippedDate));
             cmd.Parameters.Add(new SqlParameter("@Freight", order.Freight));
             cmd.Parameters.Add(new SqlParameter("@ShipperID", order.ShipperID));
             cmd.Parameters.Add(new SqlParameter("@ShipAddress", order.ShipAddress));
             cmd.Parameters.Add(new SqlParameter("@ShipCity", order.ShipCity));
-            cmd.Parameters.Add(new SqlParameter("@ShipRegion", order.ShipRegion));
+            if (order.ShipRegion == null)
+            {
+                cmd.Parameters.Add(new SqlParameter("@ShipRegion", DBNull.Value));
+            }
+            else {
+                cmd.Parameters.Add(new SqlParameter("@ShipRegion", order.ShipRegion));
+            }
+
+            
             cmd.Parameters.Add(new SqlParameter("@ShipPostalCode", order.ShipPostalCode));
             cmd.Parameters.Add(new SqlParameter("@ShipCountry", order.ShipCountry));
             cmd.Parameters.Add(new SqlParameter("@OrderID", order.OrderID));
@@ -67,6 +75,37 @@ namespace MVC_HW.Dao
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
+        }
+        public int OrderInsert(Order order) {
+            SqlConnection conn = GetSqlConnection();
+            String sql = @"insert into  [Sales].[Orders] ([CustomerID],[EmployeeID],[OrderDate],[RequiredDate],[ShippedDate],[ShipperID],[Freight],[ShipName],[ShipAddress],[ShipCity],[ShipRegion],[ShipPostalCode],[ShipCountry]) values (@CustomerID,@EmployeeID,@OrderDate,@RequiredDate,@ShippedDate,@ShipperID,@Freight,@ShipName,@ShipAddress,@ShipCity,@ShipRegion,@ShipPostalCode,@ShipCountry)";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter("@CustomerID", order.CustomerID));
+            cmd.Parameters.Add(new SqlParameter("@EmployeeID", order.EmployeeID));
+            cmd.Parameters.Add(new SqlParameter("@OrderDate", order.OrderDate));
+            cmd.Parameters.Add(new SqlParameter("@RequiredDate", order.RequireDate));
+            cmd.Parameters.Add(new SqlParameter("@ShippedDate", order.ShippedDate));
+            cmd.Parameters.Add(new SqlParameter("@Freight", order.Freight));
+            cmd.Parameters.Add(new SqlParameter("@ShipperID", order.ShipperID));
+            cmd.Parameters.Add(new SqlParameter("@ShipAddress", order.ShipAddress));
+            cmd.Parameters.Add(new SqlParameter("@ShipCity", order.ShipCity));
+            if (order.ShipRegion == null)
+            {
+                cmd.Parameters.Add(new SqlParameter("@ShipRegion", DBNull.Value));
+            }
+            else
+            {
+                cmd.Parameters.Add(new SqlParameter("@ShipRegion", order.ShipRegion));
+            }
+            
+            cmd.Parameters.Add(new SqlParameter("@ShipPostalCode", order.ShipPostalCode));
+            cmd.Parameters.Add(new SqlParameter("@ShipName", order.ShipName));
+            cmd.Parameters.Add(new SqlParameter("@ShipCountry", order.ShipCountry));
+            cmd.Parameters.Add(new SqlParameter("@OrderID", order.OrderID));
+            conn.Open();
+            int x = Convert.ToInt32(cmd.ExecuteScalar());
+            conn.Close();
+            return x;
         }
 
     }

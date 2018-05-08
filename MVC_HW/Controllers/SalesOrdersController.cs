@@ -170,5 +170,13 @@ namespace MVC_HW.Controllers
 
 
         }
+
+        [HttpPost]
+        public ActionResult Create(Order order) {
+            OrderService OS = new OrderService();
+            OS.insert(order);
+            return RedirectToAction("Index", "SalesOrders");
+        }
+            
     }
 }

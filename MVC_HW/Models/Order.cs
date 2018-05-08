@@ -21,6 +21,8 @@ namespace MVC_HW.Models
 
         [DisplayName("客戶名稱")]
         public string CusCompanyName { get; set; }
+        [DisplayName("購買者")]
+        public string ShipName { get; set; }
 
         [DisplayName("出貨公司名稱")]
         public string ShipCompanyName { get; set; }
