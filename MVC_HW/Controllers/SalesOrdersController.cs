@@ -113,9 +113,10 @@ namespace MVC_HW.Controllers
         public ActionResult DeleteTrue(int id)
         {
 
-            var itemToRemove = OrderList.SingleOrDefault(x => x.OrderID == id);
-            if (itemToRemove != null)
-                OrderList.Remove(itemToRemove);
+            OrderService OS = new OrderService();
+                OS.Delete(id);
+            
+            
 
             return RedirectToAction("Index", "SalesOrders");
         }

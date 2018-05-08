@@ -27,7 +27,7 @@ namespace MVC_HW.Dao
         }
        public void OrderUpdate(Order order) {
             SqlConnection conn = GetSqlConnection();
-            String sql = @"Update [Sales].[Orders] set CustomerID=@CustomerID ,EmployeeID=@EmployeeID,OrderDate=CAST('@OrderDate' AS DATETIME),RequiredDate=CAST('@RequiredDate' AS DATETIME),ShippedDate=CAST('@ShippedDate' AS DATETIME),Freight=@Freight,ShipperID=@ShipperID,ShipAddress='@ShipAddress',ShipCity='@ShipCity',ShipRegion='@ShipRegion',ShipPostalCode=@ShipPostalCode,ShipCountry='@ShipCountry' where OrderID=@OrderID";
+            String sql = @"Update [Sales].[Orders] set CustomerID=@CustomerID ,EmployeeID=@EmployeeID,OrderDate=@OrderDate,RequiredDate=@RequiredDate,ShippedDate=@ShippedDate,Freight=@Freight,ShipperID=@ShipperID,ShipAddress=@ShipAddress,ShipCity=@ShipCity,ShipRegion=@ShipRegion,ShipPostalCode=@ShipPostalCode,ShipCountry=@ShipCountry where OrderID=@OrderID";
             SqlCommand cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add(new SqlParameter("@CustomerID",order.CustomerID));
             cmd.Parameters.Add(new SqlParameter("@EmployeeID", order.EmployeeID));
@@ -107,7 +107,21 @@ namespace MVC_HW.Dao
             conn.Close();
             return x;
         }
+        public void OrderDelete(int id) {
+            SqlConnection conn = GetSqlConnection();
+            String sql = @"DELETE FROM [Sales].[OrderDetails] WHERE OrderID = @OrderID";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter("@OrderID", id));
+            conn.Open();
+            cmd.ExecuteNonQuery();
+             sql = @"DELETE FROM [Sales].[Orders] WHERE OrderID = @OrderID";
+             cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter("@OrderID", id));
 
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            
+        }
     }
         
 }

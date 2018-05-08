@@ -55,6 +55,18 @@
 </tr>
 
 
+            <tr>
+                <td class="control-label col-md-2">
+
+@Html.LabelFor(model => model.ShipperID, htmlAttributes: new { @class = "control-label " })
+                </td>
+                <td class="col-md-10">
+                    @Html.DropDownListFor(model => model.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ShipperID, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            
+
            
 
 
@@ -72,6 +84,10 @@
 
                 </td>
             </tr>
+
+
+
+
 
             <tr>
                 <td class="control-label col-md-2">

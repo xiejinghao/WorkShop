@@ -93,9 +93,25 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
             @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
-            @Html.ActionLink("Delete", "Delete","SalesOrders", new { id=item.OrderID }, null)
+    <a onclick="Delete(@item.OrderID)">            delete</a>
         </td>
     </tr>
+
 }
 
 </table>
+<script type="text/javascript">
+   function Delete(id) {
+       if (confirm('你確定要刪除嗎 ?')) {
+           $.ajax({
+               type: "POST",
+               url: "DeleteTrue/"+id,
+               data: id,
+               success: function (respone) {
+                   console.log(respone);
+               }
+           }
+       )
+       }
+   }
+</script> 

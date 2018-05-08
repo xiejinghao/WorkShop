@@ -70,5 +70,13 @@ namespace MVC_HW.Models.Service
             return x;
 
         }
+
+        public void Delete(int id)
+        {
+            OrderDao OD = new OrderDao();
+             OD.OrderDelete(id);
+            
+
+        }
     }
 }
