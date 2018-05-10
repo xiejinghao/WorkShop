@@ -38,7 +38,7 @@ namespace MVC_HW.Controllers
 
             return View();
 
-            return View();
+            
         }
         public ActionResult Search()
         {
