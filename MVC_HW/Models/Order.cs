@@ -54,7 +54,7 @@ namespace MVC_HW.Models
 
         public DateTime? ShippedDate { get; set; }
 
-
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         [DisplayName("運費")]
         [Required]
         public Decimal Freight { get; set; }
