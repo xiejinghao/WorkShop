@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.CusCompanyName)
         </th>
         <th>
@@ -53,6 +56,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.CusCompanyName)
         </td>
@@ -108,7 +114,7 @@
                url: "DeleteTrue/"+id,
                data: id,
                success: function (respone) {
-                   console.log(respone);
+                   window.location.href = "./Index";
                }
            }
        )
