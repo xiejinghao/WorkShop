@@ -43,7 +43,7 @@ namespace MVC_HW.Models.Service
         public List<Order> Search(SearchArgs searchargs)
         {
             OrderDao OD = new OrderDao();
-            DataSet ds = OD.GetDataSet();
+            DataSet ds = OD.GetSearchDataSet(searchargs);
             List<Order> LOrder = ds.Tables[0].AsEnumerable().Select(m => new Order()
             {
                 OrderID = m.Field<int>("OrderID"),
