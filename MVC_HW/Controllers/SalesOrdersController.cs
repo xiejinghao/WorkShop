@@ -9,7 +9,7 @@ using MVC_HW.Models.Service;
 using System.Data;
 
 namespace MVC_HW.Controllers
-{
+{   
     public class SalesOrdersController : Controller
     {
         public static List<Models.Order> OrderList;
