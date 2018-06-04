@@ -180,6 +180,13 @@ namespace MVC_HW.Controllers
             OS.insert(order);
             return RedirectToAction("Index", "SalesOrders");
         }
+
+        [HttpGet]
+        public JsonResult GetJsonList() {
+            OrderService OrderService = new OrderService();
+            OrderList = OrderService.GetList();
+            return Json(OrderList, JsonRequestBehavior.AllowGet);
+        }
             
     }
 }
