@@ -24,7 +24,7 @@
                 <td class="control-label  col-md-2">
                    
 
-                        @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label " })
+                        @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label k-textbox" })
                    
 </td>
              
@@ -216,7 +216,24 @@
 
        
 
-    
+    <script>
+
+        $(document).ready(function() {
+            var data = [
+                { text: "Black", value: "1" },
+                { text: "Orange", value: "2" },
+                { text: "Grey", value: "3" }
+            ];
+
+            // create DropDownList from input HTML element
+            $("#CustomerID").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: data,
+                index: 0,
+                change: onChange
+            });
+        </script>
 
      
 }

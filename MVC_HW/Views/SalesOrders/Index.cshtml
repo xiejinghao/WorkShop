@@ -39,11 +39,12 @@
         $.ajax({
             url:"GetJsonList",
             type:'Get',
-            success:function(resopnse){
+            success: function (response) {
+                console.log(response[0].OrderDate)
                 $("#tabletest").kendoGrid({
                     dataSource: {
                         type: "Json",
-                        data:resopnse
+                        data: response
                
 
 

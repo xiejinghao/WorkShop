@@ -7,6 +7,7 @@ using MVC_HW.Models;
 using MVC_HW.Dao;
 using MVC_HW.Models.Service;
 using System.Data;
+using System.Web.Script.Serialization;
 
 namespace MVC_HW.Controllers
 {   
@@ -182,11 +183,14 @@ namespace MVC_HW.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetJsonList() {
+        public ActionResult GetJsonList() {
             OrderService OrderService = new OrderService();
             OrderList = OrderService.GetList();
-            return Json(OrderList, JsonRequestBehavior.AllowGet);
+            var x = ((JavaScriptSerializer)new JavaScriptSerializer()).Serialize(OrderList);
+           // ViewBag.test = x;
+            return Content(x.ToString(), "application/json");
+
         }
-            
+
     }
 }
