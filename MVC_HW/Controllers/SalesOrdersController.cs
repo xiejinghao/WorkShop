@@ -55,6 +55,19 @@ namespace MVC_HW.Controllers
 
             return View();
         }
+
+        public ActionResult Query()
+        {
+            CustomersList = new CustomerService().GetCustomerList();
+            EmployeesList = new EmployeeService().GetEmployeeList();
+            ShippersList = new ShipperService().GetShipperList();
+            ViewBag.EL = EmployeesList;
+            ViewBag.SL = ShippersList;
+            ViewBag.CL = CustomersList;
+
+
+            return View();
+        }
         [HttpPost]
         public ActionResult searchResult(Models.SearchArgs SearchArgs)
 

@@ -12,62 +12,117 @@
 
 <div id="tabletest"></div>
 <script type="text/javascript">
-   function Delete(id) {
-       if (confirm('你確定要刪除嗎 ?')) {
-           $.ajax({
-               type: "POST",
-               url: "DeleteTrue/"+id,
-               data: id,
-               success: function (respone) {
-                   window.location.href = "./Index";
-               }
-           }
-       )
-       }
-   }
+    function Delete(e) {
+        if (confirm('你確定要刪除嗎 ?')) {
+            e.preventDefault();
+
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            console.log(dataItem.OrderID);
+            $.ajax({
+                type: "POST",
+                url: "DeleteTrue/" + dataItem.OrderID,
+                data:{"id":dataItem.OrderID},
+                success: function (respone) {
+                    var dataSource = $("#tabletest").data("kendoGrid").dataSource;
+                    dataSource.remove(dataItem);
+                    dataSource.sync();
+                  //  window.location.href = "./Index";
+                }
+            }
+        )
+        }
+    }
 
 
 
 
-</script> 
+</script>
 
 <script>
 
-
+    var grid;
 
     $(document).ready(function () {
         $.ajax({
-            url:"GetJsonList",
-            type:'Get',
+            url: '@Url.Action("GetJsonList","SalesOrders")',
+            type: 'Get',
             success: function (response) {
-                console.log(response[0].OrderDate)
-                $("#tabletest").kendoGrid({
+                
+                // console.log(response[0].OrderDate)
+                grid= $("#tabletest").kendoGrid({
                     dataSource: {
                         type: "Json",
-                        data: response
-               
-
-
+                        data: response,
+                        pageSize: 20
                     },
                     height: 550,
-                    pageSize: 20,
                     pageable: {
                         pageSizes: true
                     },
-                sortable: true,
-                reorderable: true,
-                resizable: true,
-                pageable: true,})},
+                    editable:true,
+                    sortable: true,
+                    reorderable: true,
+                    resizable: true,
+                    pageable: true,
+                    columns: [{
+
+                        field: "OrderID",
+                        title: "訂單編號",
+                        width: 240
+                    },
+                    {
+                        field: "CusCompanyName",
+                        title: "客戶名稱",
+
+                    },
+                    {
+                        field: "OrderDate",
+                        title: "訂購日期",
+                        template: "#= kendo.toString(kendo.parseDate(OrderDate, 'yyyy-MM-dd'), 'yyyy/MM/dd') #"
+                    },
+                    {
+                        field: "RequireDate",
+                        title: "需要日期",
+                        template: "#= kendo.toString(kendo.parseDate(RequireDate, 'yyyy-MM-dd'), 'yyyy/MM/dd') #"
+                    },
+                    {
+                        command: { text: "View Details", click: showDetails },
+                        title: " ",
+                        width: "180px"
+                    }, 
+                    {
+                        command: { text: "Delete", click: Delete },
+                        title: " ",
+                        width: "180px"
+
+                    }]
+
+
+
+
+
+                })
+            },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
                 alert(thrownError);
             }
 
 
-        
-        
-        
+
+
+
         })
-          
-        });
+
+    });
+    function showDetails(e) {
+        e.preventDefault();
+       
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        //console.log(dataItem.OrderID);
+
+        window.location.href = '@Url.Action("Edit", "SalesOrders")/' + dataItem.OrderID;
+    }
+
+
 </script>

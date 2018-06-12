@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Order</h4>
         <hr />
@@ -19,55 +19,55 @@
 
         <table>
 
-           
+
             <tr>
                 <td class="control-label  col-md-2">
-                   
 
-                        @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label k-textbox" })
-                   
-</td>
-             
+
+                    @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label " })
+
+                </td>
+
                 <td class="col-md-10">
-                  
-                  
-                       
-                            @Html.DropDownListFor(model => model.CustomerID, new SelectList(ViewBag.CL, "CustomerID", "CompanyName"), new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
-                        
-                 
-                    <td>
 
-</tr>
+
+
+                    @Html.DropDownListFor(model => model.CustomerID, new SelectList(ViewBag.CL, "CustomerID", "CompanyName"), new { @class = "form-control kendodropdown" })
+                    @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+
+
+                <td>
+
+            </tr>
 
             <tr>
                 <td class="control-label col-md-2">
 
                     @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label " })
 
-                    </td>
-                <td class="col-md-10">
-                    
-                        @Html.DropDownListFor(model => model.EmployeeID, new SelectList(ViewBag.EL, "EmployeeID", "FullName"), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
-                    
                 </td>
-</tr>
+                <td class="col-md-10">
+
+                    @Html.DropDownListFor(model => model.EmployeeID, new SelectList(ViewBag.EL, "EmployeeID", "FullName"), new { @class = "form-control kendodropdown" })
+                    @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+
+                </td>
+            </tr>
 
 
             <tr>
                 <td class="control-label col-md-2">
 
-@Html.LabelFor(model => model.ShipperID, htmlAttributes: new { @class = "control-label " })
+                    @Html.LabelFor(model => model.ShipperID, htmlAttributes: new { @class = "control-label " })
                 </td>
                 <td class="col-md-10">
-                    @Html.DropDownListFor(model => model.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), new { @class = "form-control kendodropdown" })
                     @Html.ValidationMessageFor(model => model.ShipperID, "", new { @class = "text-danger" })
                 </td>
             </tr>
-            
 
-           
+
+
 
 
 
@@ -79,7 +79,7 @@
                 </td>
                 <td class="col-md-10">
 
-                    @Html.EditorFor(model => model.ShipName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ShipName, new { htmlAttributes = new { @class = "form-control k-textbox" } })
                     @Html.ValidationMessageFor(model => model.ShipName, "", new { @class = "text-danger" })
 
                 </td>
@@ -97,7 +97,7 @@
                 </td>
                 <td class="col-md-10">
 
-                    @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control kendodate" } })
                     @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
 
                 </td>
@@ -110,7 +110,7 @@
                 </td>
                 <td class="col-md-10">
 
-                    @Html.EditorFor(model => model.RequireDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.RequireDate, new { htmlAttributes = new { @class = "form-control kendodate" } })
                     @Html.ValidationMessageFor(model => model.RequireDate, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -122,7 +122,7 @@
                 </td>
                 <td class="col-md-10">
 
-                    @Html.EditorFor(model => model.ShippedDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ShippedDate, new { htmlAttributes = new { @class = "form-control kendodate" } })
                     @Html.ValidationMessageFor(model => model.ShippedDate, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -130,11 +130,11 @@
             <tr>
                 <td class="control-label col-md-2">
 
-@Html.LabelFor(model => model.Freight, htmlAttributes: new { @class = "control-label" })  
-                              </td>
+                    @Html.LabelFor(model => model.Freight, htmlAttributes: new { @class = "control-label" })
+                </td>
                 <td class="col-md-10">
 
-                    @Html.EditorFor(model => model.Freight, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Freight, new { htmlAttributes = new { @class = "form-control k-textbox" } })
                     @Html.ValidationMessageFor(model => model.Freight, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -146,10 +146,10 @@
                 </td>
                 <td class="col-md-10">
 
-                    @Html.EditorFor(model => model.ShipAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ShipAddress, new { htmlAttributes = new { @class = "form-control k-textbox" } })
                     @Html.ValidationMessageFor(model => model.ShipAddress, "", new { @class = "text-danger" })
-                
-                                </td>
+
+                </td>
             </tr>
 
 
@@ -159,7 +159,7 @@
                     @Html.LabelFor(model => model.ShipCity, htmlAttributes: new { @class = "control-label " })
                 </td>
                 <td class="col-md-10">
-                    @Html.EditorFor(model => model.ShipCity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ShipCity, new { htmlAttributes = new { @class = "form-control k-textbox" } })
                     @Html.ValidationMessageFor(model => model.ShipCity, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -170,7 +170,7 @@
                     @Html.LabelFor(model => model.ShipRegion, htmlAttributes: new { @class = "control-label " })
                 </td>
                 <td class="col-md-10">
-                    @Html.EditorFor(model => model.ShipRegion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ShipRegion, new { htmlAttributes = new { @class = "form-control k-textbox" } })
                     @Html.ValidationMessageFor(model => model.ShipRegion, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -181,7 +181,7 @@
                     @Html.LabelFor(model => model.ShipPostalCode, htmlAttributes: new { @class = "control-label " })
                 </td>
                 <td class="col-md-10">
-                    @Html.EditorFor(model => model.ShipPostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ShipPostalCode, new { htmlAttributes = new { @class = "form-control  k-textbox" } })
                     @Html.ValidationMessageFor(model => model.ShipPostalCode, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -192,7 +192,7 @@
                     @Html.LabelFor(model => model.ShipCountry, htmlAttributes: new { @class = "control-label " })
                 </td>
                 <td class="col-md-10">
-                    @Html.EditorFor(model => model.ShipCountry, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ShipCountry, new { htmlAttributes = new { @class = "form-control  k-textbox" } })
                     @Html.ValidationMessageFor(model => model.ShipCountry, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -202,46 +202,34 @@
 
                     <input type="submit" value="Create" class="btn btn-default" />
                 </td>
-               
+
             </tr>
 
 
-       
 
-       </table>
 
-       </div>
+        </table>
 
-        
+    </div>
 
-       
+
+
+
 
     <script>
-
-        $(document).ready(function() {
-            var data = [
-                { text: "Black", value: "1" },
-                { text: "Orange", value: "2" },
-                { text: "Grey", value: "3" }
-            ];
-
+        $(document).ready(function () {
             // create DropDownList from input HTML element
-            $("#CustomerID").kendoDropDownList({
-                dataTextField: "text",
-                dataValueField: "value",
-                dataSource: data,
-                index: 0,
-                change: onChange
-            });
-        </script>
+            $(".kendodropdown").kendoDropDownList()
+            $(".kendodate").kendoDatePicker()
+        });
+    </script>
 
-     
+
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

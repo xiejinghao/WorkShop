@@ -206,6 +206,7 @@
     <Content Include="Views\SalesOrders\Edit.cshtml" />
     <Content Include="Views\SalesOrders\web.config" />
     <Content Include="Views\SalesOrders\Create.cshtml" />
+    <Content Include="Views\SalesOrders\Query.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

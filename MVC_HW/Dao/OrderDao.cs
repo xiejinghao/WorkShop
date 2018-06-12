@@ -61,7 +61,7 @@ namespace MVC_HW.Dao
 
 
             SqlConnection conn = GetSqlConnection();
-            String sql = "select d.CompanyName as Cuscom,b.CompanyName as shipcom,* from [Sales].Orders a left join Sales.Shippers b on a.ShipperID=b.ShipperID left join HR.Employees c on a.EmployeeID=c.EmployeeID left join Sales.Customers d on a.CustomerID=d.CustomerID where a.OrderID=@OrderID or a.CustomerID=@CustomerID or c.EmployeeID=@EmployeeID or a.ShipperID=@ShipperID and a.OrderDate=@OrderDate or a.RequiredDate=@RequiredDate or a.ShippedDate=@ShippedDate";
+            String sql = "select d.CompanyName as Cuscom,b.CompanyName as shipcom,* from [Sales].Orders a left join Sales.Shippers b on a.ShipperID=b.ShipperID left join HR.Employees c on a.EmployeeID=c.EmployeeID left join Sales.Customers d on a.CustomerID=d.CustomerID where a.OrderID=@OrderID and a.CustomerID=@CustomerID and c.EmployeeID=@EmployeeID and a.ShipperID=@ShipperID and a.OrderDate=@OrderDate and a.RequiredDate=@RequiredDate and a.ShippedDate=@ShippedDate";
             SqlCommand cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add(new SqlParameter("@OrderID", searchargs.OrderID));
             cmd.Parameters.Add(new SqlParameter("@CustomerID", searchargs.CustomerID));
