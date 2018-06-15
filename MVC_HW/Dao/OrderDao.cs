@@ -57,14 +57,15 @@ namespace MVC_HW.Dao
 
         }
 
-        public DataSet GetSearchDataSet(SearchArgs searchargs) {
+       /* public DataSet GetSearchDataSet(SearchArgs searchargs) {
 
 
             SqlConnection conn = GetSqlConnection();
-            String sql = "select d.CompanyName as Cuscom,b.CompanyName as shipcom,* from [Sales].Orders a left join Sales.Shippers b on a.ShipperID=b.ShipperID left join HR.Employees c on a.EmployeeID=c.EmployeeID left join Sales.Customers d on a.CustomerID=d.CustomerID where a.OrderID=@OrderID and a.CustomerID=@CustomerID and c.EmployeeID=@EmployeeID and a.ShipperID=@ShipperID and a.OrderDate=@OrderDate and a.RequiredDate=@RequiredDate and a.ShippedDate=@ShippedDate";
+            String sql = "select d.CompanyName as Cuscom,b.CompanyName as shipcom,* from [Sales].Orders a left join Sales.Shippers b on a.ShipperID=b.ShipperID left join HR.Employees c on a.EmployeeID=c.EmployeeID left join Sales.Customers d on a.CustomerID=d.CustomerID where  a.CustomerID=@CustomerID and c.EmployeeID=@EmployeeID and a.ShipperID=@ShipperID and a.OrderDate=@OrderDate and a.RequiredDate=@RequiredDate and a.ShippedDate=@ShippedDate";
             SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.Add(new SqlParameter("@OrderID", searchargs.OrderID));
-            cmd.Parameters.Add(new SqlParameter("@CustomerID", searchargs.CustomerID));
+            
+            cmd.Parameters.Add(new SqlParameter("@CustomerID",searchargs.CustomerID));
+            
             cmd.Parameters.Add(new SqlParameter("@EmployeeID", searchargs.EmployeeID));
             cmd.Parameters.Add(new SqlParameter("@ShipperID", searchargs.ShippingID));
             cmd.Parameters.Add(new SqlParameter("@OrderDate", searchargs.OrderDate));
@@ -75,7 +76,7 @@ namespace MVC_HW.Dao
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
-        }
+        }*/
         public int OrderInsert(Order order) {
             SqlConnection conn = GetSqlConnection();
             String sql = @"insert into  [Sales].[Orders] ([CustomerID],[EmployeeID],[OrderDate],[RequiredDate],[ShippedDate],[ShipperID],[Freight],[ShipName],[ShipAddress],[ShipCity],[ShipRegion],[ShipPostalCode],[ShipCountry]) values (@CustomerID,@EmployeeID,@OrderDate,@RequiredDate,@ShippedDate,@ShipperID,@Freight,@ShipName,@ShipAddress,@ShipCity,@ShipRegion,@ShipPostalCode,@ShipCountry)";
