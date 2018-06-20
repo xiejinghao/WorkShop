@@ -1,235 +1,191 @@
 ﻿@model MVC_HW.Models.Order
-
-@{
-    ViewBag.Title = "Create";
-}
-
-<h2>Create</h2>
-
-
-@using (Html.BeginForm())
+@{ ViewBag.Title = "建立訂單"; }
+@using (Html.BeginForm("CreateOrder", "Order", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Order</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-        <table>
-
-
-            <tr>
-                <td class="control-label  col-md-2">
-
-
-                    @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label " })
-
-                </td>
-
-                <td class="col-md-10">
-
-
-
-                    @Html.DropDownListFor(model => model.CustomerID, new SelectList(ViewBag.CL, "CustomerID", "CompanyName"), new { @class = "form-control kendodropdown" })
-                    @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
-
-
-                <td>
-
-            </tr>
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label " })
-
-                </td>
-                <td class="col-md-10">
-
-                    @Html.DropDownListFor(model => model.EmployeeID, new SelectList(ViewBag.EL, "EmployeeID", "FullName"), new { @class = "form-control kendodropdown" })
-                    @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
-
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.ShipperID, htmlAttributes: new { @class = "control-label " })
-                </td>
-                <td class="col-md-10">
-                    @Html.DropDownListFor(model => model.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), new { @class = "form-control kendodropdown" })
-                    @Html.ValidationMessageFor(model => model.ShipperID, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-
-
-
-
-
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.ShipName, htmlAttributes: new { @class = "control-label " })
-
-                </td>
-                <td class="col-md-10">
-
-                    @Html.EditorFor(model => model.ShipName, new { htmlAttributes = new { @class = "form-control k-textbox" } })
-                    @Html.ValidationMessageFor(model => model.ShipName, "", new { @class = "text-danger" })
-
-                </td>
-            </tr>
-
-
-
-
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label " })
-
-                </td>
-                <td class="col-md-10">
-
-                    @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control kendodate" } })
-                    @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
-
-                </td>
-            </tr>
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.RequireDate, htmlAttributes: new { @class = "control-label " })
-
-                </td>
-                <td class="col-md-10">
-
-                    @Html.EditorFor(model => model.RequireDate, new { htmlAttributes = new { @class = "form-control kendodate" } })
-                    @Html.ValidationMessageFor(model => model.RequireDate, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.ShippedDate, htmlAttributes: new { @class = "control-label " })
-                </td>
-                <td class="col-md-10">
-
-                    @Html.EditorFor(model => model.ShippedDate, new { htmlAttributes = new { @class = "form-control kendodate" } })
-                    @Html.ValidationMessageFor(model => model.ShippedDate, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.Freight, htmlAttributes: new { @class = "control-label" })
-                </td>
-                <td class="col-md-10">
-
-                    @Html.EditorFor(model => model.Freight, new { htmlAttributes = new { @class = "form-control k-textbox" } })
-                    @Html.ValidationMessageFor(model => model.Freight, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.ShipAddress, htmlAttributes: new { @class = "control-label " })
-                </td>
-                <td class="col-md-10">
-
-                    @Html.EditorFor(model => model.ShipAddress, new { htmlAttributes = new { @class = "form-control k-textbox" } })
-                    @Html.ValidationMessageFor(model => model.ShipAddress, "", new { @class = "text-danger" })
-
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.ShipCity, htmlAttributes: new { @class = "control-label " })
-                </td>
-                <td class="col-md-10">
-                    @Html.EditorFor(model => model.ShipCity, new { htmlAttributes = new { @class = "form-control k-textbox" } })
-                    @Html.ValidationMessageFor(model => model.ShipCity, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.ShipRegion, htmlAttributes: new { @class = "control-label " })
-                </td>
-                <td class="col-md-10">
-                    @Html.EditorFor(model => model.ShipRegion, new { htmlAttributes = new { @class = "form-control k-textbox" } })
-                    @Html.ValidationMessageFor(model => model.ShipRegion, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.ShipPostalCode, htmlAttributes: new { @class = "control-label " })
-                </td>
-                <td class="col-md-10">
-                    @Html.EditorFor(model => model.ShipPostalCode, new { htmlAttributes = new { @class = "form-control  k-textbox" } })
-                    @Html.ValidationMessageFor(model => model.ShipPostalCode, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-
-            <tr>
-                <td class="control-label col-md-2">
-
-                    @Html.LabelFor(model => model.ShipCountry, htmlAttributes: new { @class = "control-label " })
-                </td>
-                <td class="col-md-10">
-                    @Html.EditorFor(model => model.ShipCountry, new { htmlAttributes = new { @class = "form-control  k-textbox" } })
-                    @Html.ValidationMessageFor(model => model.ShipCountry, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-offset-2 col-md-10" colspan="2">
-
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </td>
-
-            </tr>
-
-
-
-
-        </table>
-
-    </div>
-
-
-
-
-
-    <script>
-        $(document).ready(function () {
-            // create DropDownList from input HTML element
-            $(".kendodropdown").kendoDropDownList()
-            $(".kendodate").kendoDatePicker()
-        });
+    <table style="margin-top:20px">
+        <tr></tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.CustomerID, new { @class = "required" })</td>
+            <td colspan="3">
+                @Html.DropDownListFor(m => m.CustomerID, new SelectList(ViewBag.CL, "CustomerID", "CompanyName"), "請選擇", new { @class = "form-control", style = "width:200px" })
+                @Html.ValidationMessageFor(m => m.CustomerID)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.EmployeeID, new { @class = "required" })</td>
+            <td colspan="3">
+                @Html.DropDownListFor(m => m.EmployeeID, new SelectList(ViewBag.EL, "EmployeeID", "FullName"), "請選擇", new { @class = "form-control", style = "width:200px" })
+                @Html.ValidationMessageFor(m => m.EmployeeID)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.OrderDate, new { @class = "required" })</td>
+            <td>
+                @Html.TextBoxFor(m => m.OrderDate, new { type = "date", @class = "form-control", style = "width:150px" })
+                @Html.ValidationMessageFor(m => m.OrderDate)
+            </td>
+            <td>@Html.LabelFor(m => m.RequireDate, new { @class = "required" })</td>
+            <td>
+                @Html.TextBoxFor(m => m.RequireDate, new { type = "date", @class = "form-control", style = "width:150px" })
+                @Html.ValidationMessageFor(m => m.RequireDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShippedDate)</td>
+            <td colspan="3">
+                @Html.TextBoxFor(m => m.ShippedDate, new { type = "date", @class = "form-control", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShipperID)</td>
+            <td colspan="3">
+                @Html.DropDownListFor(m => m.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), "請選擇", new { @class = "form-control", style = "width:200px" })
+                @Html.ValidationMessageFor(m => m.ShipperID)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Freight)</td>
+            <td colspan="3">
+                @Html.TextBoxFor(m => m.Freight, new { type = "number", @class = "input-number form-control", style = "width:150px" })
+                @Html.ValidationMessageFor(m => m.Freight)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShipCountry)</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShipCountry, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShipCountry)
+            </td>
+            <td>@Html.LabelFor(m => m.ShipCity)</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShipCity, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShipCity)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShipRegion)</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShipRegion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShipRegion)
+            </td>
+            <td>@Html.LabelFor(m => m.ShipPostalCode)</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShipPostalCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShipPostalCode)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShipAddress)</td>
+            <td colspan="3">
+                @Html.TextBoxFor(m => m.ShipAddress, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShipAddress)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+                <input type="submit" value="存檔" class="btn btn-primary" />
+                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Query", "Order")';">回前一頁</button>
+            </td>
+        </tr>
+    </table>
+    <div id="kendogrid"></div>
+    <script type="text/x-kendo-template" id="template">
+        <div class="refreshBtnContainer">
+            <a class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+        </div>
+        <div class="toolbar">
+            <button id="add">add</button>
+        </div>
     </script>
+    /*<button type="button" id>新增商品</button>
+     <table id="detailTable" style="border: 1px solid black; width: 80%" class="DetailTable">
+         <tr>
+             <th>商品</th>
+             <th>單價</th>
+             <th>數量</th>
+             <th>小計</th>
+             <th>動作</th>
+         </tr>
+     </table>*/
+
+
+
 
 
 }
+<script>
+  
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+    var grid = $("#kendogrid").kendoGrid({
+        height: 550,
+        pageable:
+    {
+        pageSizes: true
+    },
+        editable: true,
+        sortable: true,
+        reorderable: true,
+        resizable: true,
+        toolbar: ["create"],
+        pageable: true,
+        columns: [{
+
+            field: "ProductName",
+            title: "產品名稱",
+            width: 240
+            , editor: categoryDropDownEditor
+        },
+        {
+            field: "Qty",
+            title: "數量",
+
+        },
+        {
+            field: "UnitPrice",
+            title: "單價",
+            
+        },
+        {
+            field: "",
+            title: "小計",
+         
+        }
+        ]
+
+
+
+
+
+    })
+
+    $("#add").click(function(){
+
+       
+    })
+
+
+
+        function categoryDropDownEditor(container, options) {
+            $('<input required name="' + options.field + '"/>')
+                .appendTo(container)
+                .kendoDropDownList({
+
+
+                    autoBind: true,
+                    dataTextField: "ProductName",
+                    dataValueField: "ProductID",
+                    dataSource: {
+                        type: "json",
+                        transport: {
+                            read: '@Url.Action("GetProductList","SalesOrders")'
+                        }
+                    }
+                });
+        }
+
+
+</script>

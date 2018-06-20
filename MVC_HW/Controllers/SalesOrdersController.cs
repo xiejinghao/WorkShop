@@ -21,7 +21,7 @@ namespace MVC_HW.Controllers
         public ActionResult Index()
         {
 
-            OrderService OrderService = new OrderService();
+                OrderService OrderService = new OrderService();
             OrderList = OrderService.GetList();
             return View(OrderList);
         }
@@ -69,7 +69,7 @@ namespace MVC_HW.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult searchResult(Models.SearchArgs SearchArgs)
+        public JsonResult SearchResult(Models.SearchArgs SearchArgs)
 
         {
             //var test = SearchArgs.ShippingID.Equals(OrderList[0].ShipperID);
@@ -118,7 +118,7 @@ namespace MVC_HW.Controllers
             OrderService OS = new OrderService();
 
 
-            return View(OS.Search(SearchArgs));
+            return Json(OS.Search(SearchArgs),JsonRequestBehavior.AllowGet);
         }
         public ActionResult Delete(int id)
         {
@@ -200,9 +200,18 @@ namespace MVC_HW.Controllers
             OrderService OrderService = new OrderService();
             OrderList = OrderService.GetList();
             var x = ((JavaScriptSerializer)new JavaScriptSerializer()).Serialize(OrderList);
-           // ViewBag.test = x;
+            // ViewBag.test = x;
+            return Json(OrderList, JsonRequestBehavior.AllowGet);
             return Content(x.ToString(), "application/json");
 
+        }
+
+
+        public ActionResult GetProductList()
+        {
+            ProductService s = new ProductService();
+            
+            return Json(s.GetAllProduct(), JsonRequestBehavior.AllowGet);
         }
 
     }

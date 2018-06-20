@@ -18,7 +18,23 @@
     <script src="~/scripts/kendo.all.min.js"></script>
     <script src="~/scripts/messages/kendo.messages.zh-TW.min.js"></script>
     <script src="~/scripts/cultures/kendo.culture.zh-TW.min.js"></script>
-    
+    <style>
+        /* 錯誤訊息 */
+        .field-validation-error {
+            color: red;
+        }
+
+        /* 必填欄位 */
+        .required:before {
+            content: '*';
+            color: red;
+        }
+
+        /* 數字靠右 */
+        .input-number {
+            text-align: right;
+        }
+    </style>
     
 
 </head>

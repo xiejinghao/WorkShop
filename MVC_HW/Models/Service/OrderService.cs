@@ -60,13 +60,14 @@ namespace MVC_HW.Models.Service
                 ShipRegion = m.Field<String>("ShipRegion"),
                 ShipPostalCode = m.Field<String>("ShipPostalCode"),
                 ShipCountry = m.Field<String>("ShipCountry")
-            });
+            }).ToList();
 
 
-
+            
             if (searchargs.OrderID.HasValue)
             {
-                LOrder = LOrder.Where(m => m.OrderID == searchargs.OrderID.Value);
+                
+                LOrder = LOrder.Where(m=>m.OrderID==searchargs.OrderID.Value);
             }
 
             // 客戶名稱 (like 查詢)

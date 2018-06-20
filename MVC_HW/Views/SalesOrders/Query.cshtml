@@ -1,7 +1,7 @@
 ﻿@model MVC_HW.Models.SearchArgs
 @{ ViewBag.Title = "訂單查詢頁面"; }
 
-@using (Html.BeginForm("SearchResult", "SalesOrders", FormMethod.Post))
+@using (Html.BeginForm("SearchResult", "SalesOrders", FormMethod.Post,new { id="form"}))
 {
 
     <table style="margin-top:10px;">
@@ -16,13 +16,13 @@
         <tr>
             <td>@Html.LabelFor(m => m.EmployeeID)</td>
             <td>
-                @Html.DropDownListFor(model => model.EmployeeID, new SelectList(ViewBag.EL, "EmployeeID", "FullName"), new { @class = "form-control kendodropdown", style = "width:200px" })
+                @Html.DropDownListFor(model => model.EmployeeID, new SelectList(ViewBag.EL, "EmployeeID", "FullName"), "請選擇", new { @class = "form-control kendodropdown", style = "width:200px" })
             </td>
         </tr>
         <tr>
             <td>@Html.LabelFor(m => m.ShipperID)</td>
             <td>
-                @Html.DropDownListFor(model => model.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), new { @class = "form-control kendodropdown", style = "width:200px" })
+                @Html.DropDownListFor(model => model.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), "請選擇", new { @class = "form-control kendodropdown", style = "width:200px" })
             </td>
         </tr>
         <tr>
@@ -38,18 +38,84 @@
         <tr>
             <td></td>
             <td colspan="3">
-                <input type="submit" value="查詢" class="btn btn-primary" />
+                <input id="searchsubmit" value="查詢" class="btn btn-primary" />
                 <input type="reset" value="清除" class="btn btn-warning" />
                 <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Create", "CalesOrders")';">新增訂單</button>
             </td>
         </tr>
     </table>
+    <div id="searchresult"></div>
 }
 <script>
     $(document).ready(function () {
         $('.kendodropdown').kendoDropDownList();
-        $('.datetimepick').kendoDatePicker();
+        $('.datetimepick').kendoDatePicker({ format: "yyyy/MM/dd" });
+        var grid = $("#searchresult").kendoGrid({
+            height: 550,
+            pageable: {
+                pageSizes: true
+            },
+            editable: true,
+            sortable: true,
+            reorderable: true,
+            resizable: true,
+            pageable: true,
+            columns: [{
 
+                field: "OrderID",
+                title: "訂單編號",
+                width: 240
+            },
+            {
+                field: "CusCompanyName",
+                title: "客戶名稱",
+
+            },
+            {
+                field: "OrderDate",
+                title: "訂購日期",
+                template: "#= kendo.toString(kendo.parseDate(OrderDate, 'yyyy-MM-dd'), 'yyyy/MM/dd') #"
+            },
+            {
+                field: "RequireDate",
+                title: "需要日期",
+                template: "#= kendo.toString(kendo.parseDate(RequireDate, 'yyyy-MM-dd'), 'yyyy/MM/dd') #"
+            }
+            ]
+            
+
+
+
+
+        })
+        console.log(grid);
+        $('#searchsubmit').click(function () {
+            var submit = $('#form').serializeArray();
+            
+            $.ajax({
+                url: '@Url.Action("SearchResult","SalesOrders")',
+                type: 'Post',
+                data:submit,
+                success: function (response) {
+                    
+                    var grid = $("#searchresult").data("kendoGrid");
+                    var dataSource = new kendo.data.DataSource({
+                        data: 
+                        response
+                        
+                    });
+                    console.log(response);
+                    grid.setDataSource(dataSource);
+
+
+
+                }
+            
+            
+            })
+        
+        
+        })
 
     })
     

@@ -176,6 +176,7 @@
     <Compile Include="Dao\CustomerDao.cs" />
     <Compile Include="Dao\EmployeeDao.cs" />
     <Compile Include="Dao\OrderDao.cs" />
+    <Compile Include="Dao\ProductDao.cs" />
     <Compile Include="Dao\ShipperDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -183,10 +184,13 @@
     <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\Employees.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\SearchArgs.cs" />
     <Compile Include="Models\Service\CustomerService.cs" />
     <Compile Include="Models\Service\EmployeeService.cs" />
     <Compile Include="Models\Service\OrderService.cs" />
+    <Compile Include="Models\Service\ProductService.cs" />
     <Compile Include="Models\Service\ShipperService.cs" />
     <Compile Include="Models\Shippers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
