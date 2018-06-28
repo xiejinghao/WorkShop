@@ -10,7 +10,7 @@ using System.Data;
 using System.Web.Script.Serialization;
 
 namespace MVC_HW.Controllers
-{   
+{
     public class SalesOrdersController : Controller
     {
         public static List<Models.Order> OrderList;
@@ -21,7 +21,7 @@ namespace MVC_HW.Controllers
         public ActionResult Index()
         {
 
-                OrderService OrderService = new OrderService();
+            OrderService OrderService = new OrderService();
             OrderList = OrderService.GetList();
             return View(OrderList);
         }
@@ -41,7 +41,7 @@ namespace MVC_HW.Controllers
 
             return View();
 
-            
+
         }
         public ActionResult Search()
         {
@@ -68,6 +68,29 @@ namespace MVC_HW.Controllers
 
             return View();
         }
+
+        public ActionResult UpdateOrder(Order order)
+        {
+            // 產品選擇是否重複  true:有重複
+        
+
+            OrderService orderService = new OrderService();
+            orderService.UpdOrder(order);
+
+            return RedirectToAction("Query", "SalesOrders");
+        }
+
+
+
+        [HttpPost]
+        public ActionResult InsertOrderDetail(Order Order) {
+            OrderService orderService = new OrderService();
+            orderService.InsOrder(Order);
+
+            return  RedirectToAction("Query", "SalesOrders");
+        }
+
+
         [HttpPost]
         public JsonResult SearchResult(Models.SearchArgs SearchArgs)
 
@@ -158,9 +181,11 @@ namespace MVC_HW.Controllers
 
 
 
-            var result = OrderList.Find(x => x.OrderID.Equals(id));
-            return View(result);
+            OrderService orderService = new OrderService();
 
+            Order order = orderService.GetOrder(id);
+            ViewBag.OrderDetail = order.OrderDetail;
+            return View(order);
         }
         [HttpPost]
         public ActionResult EditComfirm(Models.Order order)
@@ -213,6 +238,7 @@ namespace MVC_HW.Controllers
             
             return Json(s.GetAllProduct(), JsonRequestBehavior.AllowGet);
         }
+      
 
     }
 }

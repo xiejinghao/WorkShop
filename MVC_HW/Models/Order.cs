@@ -22,7 +22,7 @@ namespace MVC_HW.Models
 
         [Required]
         [DisplayName("出貨公司名稱")]
-        public int ShipperID { get; set; }
+        public int? ShipperID { get; set; }
 
         [Required]
         [DisplayName("客戶名稱")]
@@ -57,7 +57,7 @@ namespace MVC_HW.Models
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         [DisplayName("運費")]
         [Required]
-        public Decimal Freight { get; set; }
+        public Decimal? Freight { get; set; }
         [DisplayName("出貨地址")]
         [Required]
         public String ShipAddress { get; set; }
@@ -73,6 +73,6 @@ namespace MVC_HW.Models
         public String ShipCountry { get; set; }
 
 
-      
+        public List<OrderDetail> OrderDetail { get; set; }
     }
 }

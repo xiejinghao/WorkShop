@@ -10,6 +10,23 @@ namespace MVC_HW.Models.Service
 {
     public class OrderService
     {
+
+        public Order GetOrder(int orderID)
+        {
+            OrderDao dao = new OrderDao();
+            return dao.GetOrderById(orderID);
+        }
+        public void UpdOrder(Order order)
+        {
+            OrderDao orderDao = new OrderDao();
+            orderDao.OrderUpdate(order);
+        }
+
+        public void InsOrder(Order order)
+        {
+            OrderDao orderDao = new OrderDao();
+            orderDao.AddNewOrderReturnNewOrderId(order);
+        }
         public List<Order> GetList()
         {
             OrderDao OD = new OrderDao();

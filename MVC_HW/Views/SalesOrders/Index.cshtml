@@ -33,7 +33,14 @@
         }
     }
 
+      function showDetails(e) {
+        e.preventDefault();
+       
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        //console.log(dataItem.OrderID);
 
+        window.location.href = '@Url.Action("Edit", "SalesOrders")/' + dataItem.OrderID;
+    }
 
 
 </script>
@@ -116,14 +123,7 @@
         })
 
     });
-    function showDetails(e) {
-        e.preventDefault();
-       
-        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        //console.log(dataItem.OrderID);
-
-        window.location.href = '@Url.Action("Edit", "SalesOrders")/' + dataItem.OrderID;
-    }
+  
 
 
 </script>

@@ -49,7 +49,7 @@
 <script>
     $(document).ready(function () {
         $('.kendodropdown').kendoDropDownList();
-        $('.datetimepick').kendoDatePicker({ format: "yyyy/MM/dd" });
+        $('.datetimepick').kendoDatePicker();
         var grid = $("#searchresult").kendoGrid({
             height: 550,
             pageable: {
@@ -80,7 +80,17 @@
                 field: "RequireDate",
                 title: "需要日期",
                 template: "#= kendo.toString(kendo.parseDate(RequireDate, 'yyyy-MM-dd'), 'yyyy/MM/dd') #"
-            }
+                }, {
+                    command: { text: "View Details", click: showDetails },
+                    title: " ",
+                    width: "180px"
+                },
+                {
+                    command: { text: "Delete", click: Delete },
+                    title: " ",
+                    width: "180px"
+
+                }
             ]
             
 
@@ -117,6 +127,36 @@
         
         })
 
-    })
+
+    function Delete(e) {
+        if (confirm('你確定要刪除嗎 ?')) {
+            e.preventDefault();
+
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            console.log(dataItem.OrderID);
+            $.ajax({
+                type: "POST",
+                url: "DeleteTrue/" + dataItem.OrderID,
+                data:{"id":dataItem.OrderID},
+                success: function (respone) {
+                    var dataSource = $("#tabletest").data("kendoGrid").dataSource;
+                    dataSource.remove(dataItem);
+                    dataSource.sync();
+                  //  window.location.href = "./Index";
+                }
+            }
+        )
+        }
+    }
+
+      function showDetails(e) {
+        e.preventDefault();
+       
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        //console.log(dataItem.OrderID);
+
+        window.location.href = '@Url.Action("Edit", "SalesOrders")/' + dataItem.OrderID;
+    }}) 
+
     
     </script>

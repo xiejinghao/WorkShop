@@ -1,130 +1,317 @@
 ﻿@model MVC_HW.Models.Order
-
-@{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm("EditComfirm", "SalesOrders", FormMethod.Post))
+@{ ViewBag.Title = "建立訂單"; }
+@using (Html.BeginForm("CreateOrder", "Order", FormMethod.Post, new { id = "form" }))
 {
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Order</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.OrderID)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CustomerID, new SelectList(ViewBag.CL, "CustomerID", "CompanyName"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
-            </div>
+    <table style="margin-top:20px">
+        <tr></tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.CustomerID, new { @class = "required" })</td>
+            <td colspan="3">
+                @Html.DropDownListFor(m => m.CustomerID, new SelectList(ViewBag.CL, "CustomerID", "CompanyName"), "請選擇", new { @class = "form-control kendodropdown", style = "width:200px" })
+                @Html.ValidationMessageFor(m => m.CustomerID)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.EmployeeID, new { @class = "required" })</td>
+            <td colspan="3">
+                @Html.DropDownListFor(m => m.EmployeeID, new SelectList(ViewBag.EL, "EmployeeID", "FullName"), "請選擇", new { @class = "form-control kendodropdown", style = "width:200px" })
+                @Html.ValidationMessageFor(m => m.EmployeeID)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.OrderDate, new { @class = "required" })</td>
+            <td>
+                @Html.TextBoxFor(m => m.OrderDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control kendodatepicker", style = "width:150px" })
+                @Html.ValidationMessageFor(m => m.OrderDate)
+            </td>
+            <td>@Html.LabelFor(m => m.RequireDate, new { @class = "required" })</td>
+            <td>
+                @Html.TextBoxFor(m => m.RequireDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control kendodatepicker", style = "width:150px" })
+                @Html.ValidationMessageFor(m => m.RequireDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShippedDate)</td>
+            <td colspan="3">
+                @Html.TextBoxFor(m => m.ShippedDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control kendodatepicker", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShipperID)</td>
+            <td colspan="3">
+                @Html.DropDownListFor(m => m.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), "請選擇", new { @class = "form-control kendodropdown", style = "width:200px" })
+                @Html.ValidationMessageFor(m => m.ShipperID)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Freight)</td>
+            <td colspan="3">
+                @Html.TextBoxFor(m => m.Freight, new { type = "number", @class = "input-number form-control k-textbox", style = "width:150px" })
+                @Html.ValidationMessageFor(m => m.Freight)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShipCountry)</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShipCountry, new { @class = "form-control k-textbox" })
+                @Html.ValidationMessageFor(m => m.ShipCountry)
+            </td>
+            <td>@Html.LabelFor(m => m.ShipCity)</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShipCity, new { @class = "form-control k-textbox" })
+                @Html.ValidationMessageFor(m => m.ShipCity)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShipRegion)</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShipRegion, new { @class = "form-control k-textbox" })
+                @Html.ValidationMessageFor(m => m.ShipRegion)
+            </td>
+            <td>@Html.LabelFor(m => m.ShipPostalCode)</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShipPostalCode, new { @class = "form-control k-textbox" })
+                @Html.ValidationMessageFor(m => m.ShipPostalCode)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ShipAddress)</td>
+            <td colspan="3">
+                @Html.TextBoxFor(m => m.ShipAddress, new { @class = "form-control k-textbox" })
+                @Html.ValidationMessageFor(m => m.ShipAddress)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+                <input type="hidden" name="OrderID" value="@Model.OrderID">
+                <input value="存檔" class="btn btn-primary" id="save" />
+                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Query", "SalesOrders")';">回前一頁</button>
+            </td>
+        </tr>
+    </table>
+    <div id="kendogrid"></div>
+    <script type="text/x-kendo-template" id="template">
+        <div class="refreshBtnContainer">
+            <a class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.EmployeeID,new SelectList(ViewBag.EL, "EmployeeID", "FullName"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
-            </div>
+        <div class="toolbar">
+            <button id="add">add</button>
         </div>
+    </script>
+    /*<button type="button" id>新增商品</button>
+     <table id="detailTable" style="border: 1px solid black; width: 80%" class="DetailTable">
+         <tr>
+             <th>商品</th>
+             <th>單價</th>
+             <th>數量</th>
+             <th>小計</th>
+             <th>動作</th>
+         </tr>
+     </table>*/
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RequireDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RequireDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RequireDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShippedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShippedDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShippedDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShipperID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ShipperID, new SelectList(ViewBag.SL, "ShipperID", "CompanyName"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ShipperID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Freight, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Freight, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Freight, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShipAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShipAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShipAddress, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShipCity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShipCity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShipCity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShipRegion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShipRegion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShipRegion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShipPostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShipPostalCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShipPostalCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShipCountry, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShipCountry, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShipCountry, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(document).ready(function () {
+    var OrderDetail = JSON.parse('@Html.Raw(Json.Encode(ViewBag.OrderDetail))');
+        console.log(OrderDetail);
+        $('.kendodatepicker').kendoDatePicker({ format: "yyyy/MM/dd" });
+        $('.kendodropdown').kendoDropDownList();
+
+
+
+
+           var productname = [];
+          $.ajax({
+                url: '@Url.Action("GetProductList", "SalesOrders")',
+                type: 'Post',
+
+              success: function (response) {
+                  productname = response;
+                  console.log(productname);
+              }
+
+
+            })
+
+
+
+        var dataSource = new kendo.data.DataSource({
+            data: OrderDetail,
+            pageSize: 20,
+           autoSync:true,
+            autoSync: true,
+            schema: {
+                model: {
+                    id: "ProductID",
+                    fields: {
+
+                        ProductID: { editable:true   }, //{ validation: { required: true } },
+                        UnitPrice: { type: "number" },
+                        Count: { editable: false }
+
+
+                    }, total: function () {
+
+                        return this.get("UnitPrice") * this.get("Qty");
+                    }, transportname: function () {
+                        var name;
+                        var productid =this.get("ProductID");
+                        productname.forEach(function (v, i) {
+                            if (productid == v.ProductID) {
+                                name = v.ProductName;
+
+
+                            }
+
+
+
+                        })
+                        return name;
+
+
+                    }
+
+                }
+            }
+        });
+      
+    
+        var grid = $("#kendogrid").kendoGrid({
+        height: 550,
+
+        dataSource:dataSource,
+        pageable:
+    {
+        pageSizes: true
+            },
+        editable: true,
+        sortable: true,
+
+        toolbar: ["create"],
+        pageable: true,
+
+
+        columns: [{
+
+            field: "ProductID",
+            title: "產品名稱",
+            width: 240
+            , editor: categoryDropDownEditor,template:"#=transportname()#"
+
+
+        },
+        {
+            field: "Qty",
+            title: "數量",
+
+        },
+        {
+            field: "UnitPrice",
+            title: "單價",
+
+        },
+        {
+            field: "",
+            title: "小計",
+            template: "#=total()#"
+        }
+            ], save: function (e) {
+
+                if (e.values.name !== "") {
+                    // the user changed the name field
+                    if (e.values.name !== e.model.name) {
+                        console.log("name is modified");
+                    }
+                } else {
+                    e.preventDefault();
+                    console.log("name cannot be empty");
+                }
+            }
+    })
+
+
+      
+
+        function categoryDropDownEditor(container, options) {
+            $('<input required data-bind="value:' + options.field + '"/>')
+                .appendTo(container)
+                .kendoDropDownList({
+
+                    dataTextField: "ProductName",
+                    dataValueField: "ProductID",
+                    dataSource: {
+                        type: "json",
+                        transport: {
+                            read: '@Url.Action("GetProductList","SalesOrders")'
+                        }
+                    }, change: function (e) {
+
+                        var dataItem = e.sender.dataItem()
+
+                        options.model.set("UnitPrice", dataItem.UnitPrice)
+
+
+                    }
+
+                });
+        }
+
+
+
+
+
+
+
+
+    })
+    $("#save").click(function (e) {
+        var submit = $("#kendogrid").data("kendoGrid").dataSource.data();
+        var form = $("#form").serializeArray();
+        var json = {};
+        form.forEach(function (v, i) {
+            json[v.name] = v.value;
+        })
+        console.log(submit);
+
+        var orderdetaillist=[]
+        for (var i = 0; i < submit.length; i++) {
+
+            var detail = { };
+            detail['ProductID'] = submit[i].ProductID;
+            detail['Qty'] = submit[i].Qty;
+            detail['UnitPrice'] = submit[i].UnitPrice;
+            orderdetaillist.push(detail);
+        }
+
+
+        json['OrderDetail'] = orderdetaillist;
+        console.log(json)
+          $.ajax({
+            url: '@Url.Action("UpdateOrder", "SalesOrders")',
+            dataType: "json",
+
+            type: 'Post',
+            data: json,
+
+
+              success: function (response) {
+
+              }
+
+
+            })
+
+
+
+
+    })
+
+</script>
