@@ -49,7 +49,7 @@
 <script>
     $(document).ready(function () {
         $('.kendodropdown').kendoDropDownList();
-        $('.datetimepick').kendoDatePicker();
+        $('.datetimepick').kendoDatePicker({ format: "yyyy/MM/dd" });
         var grid = $("#searchresult").kendoGrid({
             height: 550,
             pageable: {
@@ -81,12 +81,12 @@
                 title: "需要日期",
                 template: "#= kendo.toString(kendo.parseDate(RequireDate, 'yyyy-MM-dd'), 'yyyy/MM/dd') #"
                 }, {
-                    command: { text: "View Details", click: showDetails },
+                    command: { text: "編輯", click: showDetails },
                     title: " ",
                     width: "180px"
                 },
                 {
-                    command: { text: "Delete", click: Delete },
+                    command: { text: "刪除", click: Delete },
                     title: " ",
                     width: "180px"
 
@@ -107,16 +107,8 @@
                 type: 'Post',
                 data:submit,
                 success: function (response) {
-                    
-                    var grid = $("#searchresult").data("kendoGrid");
-                    var dataSource = new kendo.data.DataSource({
-                        data: 
-                        response
-                        
-                    });
-                    console.log(response);
-                    grid.setDataSource(dataSource);
-
+                    $("#searchresult").data("kendoGrid").dataSource.data(response);
+                   
 
 
                 }

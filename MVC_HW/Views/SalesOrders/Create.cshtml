@@ -217,7 +217,11 @@
             field: "",
             title: "小計",
             template: "#=total()#"
-        }
+            }, {
+             command:"destroy"
+               
+            }
+
             ], save: function (e) {
 
                 if (e.values.name !== "") {

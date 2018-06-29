@@ -132,8 +132,9 @@
           $.ajax({
                 url: '@Url.Action("GetProductList", "SalesOrders")',
                 type: 'Post',
-
+              async: false,
               success: function (response) {
+                
                   productname = response;
                   console.log(productname);
               }
@@ -162,12 +163,17 @@
 
                         return this.get("UnitPrice") * this.get("Qty");
                     }, transportname: function () {
+                       
                         var name;
-                        var productid =this.get("ProductID");
+                      
+                        var productid = this.get("ProductID");
+                      
                         productname.forEach(function (v, i) {
+                           
                             if (productid == v.ProductID) {
+                              
                                 name = v.ProductName;
-
+                              
 
                             }
 
@@ -222,7 +228,12 @@
             field: "",
             title: "小計",
             template: "#=total()#"
-        }
+            }, {
+                command: "destroy"
+
+            }
+
+        
             ], save: function (e) {
 
                 if (e.values.name !== "") {

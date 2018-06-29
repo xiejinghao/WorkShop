@@ -141,7 +141,7 @@ namespace MVC_HW.Controllers
             OrderService OS = new OrderService();
 
 
-            return Json(OS.Search(SearchArgs),JsonRequestBehavior.AllowGet);
+            return Json(OS.Search(SearchArgs),JsonRequestBehavior.DenyGet);
         }
         public ActionResult Delete(int id)
         {
